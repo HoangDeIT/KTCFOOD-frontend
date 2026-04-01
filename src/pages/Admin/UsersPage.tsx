@@ -22,11 +22,22 @@ export default function UsersPage() {
     const [open, setOpen] = useState<boolean>(false);
     const [form] = Form.useForm<IAdminUserRequest>();
     const [editingUser, setEditingUser] = useState<IUser | null>(null);
-    const fetchUsers = async () => {
+
+    const [pagination, setPagination] = useState({
+        current: 1,
+        pageSize: 10,
+        total: 0
+    });
+    const fetchUsers = async (page = 1, pageSize = 10) => {
         try {
-            const res = await getUsers({ pageIndex: 1, pageSize: 10 });
+            const res = await getUsers({ pageIndex: page, pageSize });
             console.log("Fetched users:", res);
             setUsers(res.items);
+            setPagination({
+                current: res.pageIndex,
+                pageSize: res.pageSize,
+                total: res.totalCount
+            });
         } catch (err) {
             message.error("Failed to fetch users 😢" + err);
             return;
@@ -117,6 +128,8 @@ export default function UsersPage() {
                 columns={columns}
                 dataSource={users}
                 style={{ marginTop: 20 }}
+                pagination={pagination}
+                onChange={(pag) => fetchUsers(pag.current, pag.pageSize)}
             />
 
             <Modal
@@ -146,7 +159,7 @@ export default function UsersPage() {
                         <Select
                             options={[
                                 { value: "Admin" },
-                                { value: "User" }
+                                { value: "Inventory" }
                             ]}
                         />
                     </Form.Item>
