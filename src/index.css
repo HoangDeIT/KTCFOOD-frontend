@@ -1,0 +1,20 @@
+/* Reset full màn hình */
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Fix viền trắng */
+body {
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+/* Optional: nếu dùng layout full */
+#root {
+  display: flex;
+  flex-direction: column;
+}
