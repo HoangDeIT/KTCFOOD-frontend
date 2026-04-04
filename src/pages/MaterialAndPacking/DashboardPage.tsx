@@ -43,8 +43,7 @@ export default function DashboardPage() {
             await Promise.all(
                 pac.items.map(async (p: IPackaging) => {
                     const q = await getPackagingQuantity(p.id);
-                    //@ts-ignore
-                    if (q < 10) lowPac.push(p.data);
+                    if (q < 10) lowPac.push(p);
                 })
             );
 

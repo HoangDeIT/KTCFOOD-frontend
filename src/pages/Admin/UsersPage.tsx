@@ -159,7 +159,10 @@ export default function UsersPage() {
                         <Select
                             options={[
                                 { value: "Admin" },
-                                { value: "Inventory" }
+                                { value: "Inventory" },
+                                { value: "Sales" },
+                                { value: "Production" },
+                                { value: "MaterialAndPackaging" }
                             ]}
                         />
                     </Form.Item>
