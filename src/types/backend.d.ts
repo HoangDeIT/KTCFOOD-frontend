@@ -39,3 +39,88 @@ interface IInventory {
     productionDate: string;
     preservationEndDate: string;
 }
+interface IMaterialImport {
+    id: number;
+    materialId: number;
+    importReason: number;
+    supplierId?: number;
+    productionBatchId?: number;
+    quantity: number;
+    importCost: number;
+    importDate: string;
+    status: string;
+}
+
+interface IMaterialImportRequest {
+    materialId: number;
+    quantity: number;
+    importCost: number;
+    importDate: string;
+    status: string;
+}
+interface IMaterial {
+    id: number;
+    name: string;
+    unit: string;
+    type: string;
+    note: string;
+    avgPrice: number;
+}
+
+interface IMaterialRequest {
+    name: string;
+    unit: string;
+    type: string;
+    note: string;
+    avgPrice: number;
+}
+
+
+interface ISupplier {
+    id: number;
+    name: string;
+}
+
+interface IProductionBatch {
+    id: number;
+}
+interface IMaterialExport {
+    id: number;
+    materialId: number;
+    productionBatchId: number;
+    quantity: number;
+    exportDate: string;
+}
+
+interface IPackaging {
+    id: number;
+    packageName: string;
+    unit: string;
+}
+
+interface IPackagingRequest {
+    packageName: string;
+    unit: string;
+}
+interface IPackagingImport {
+    id: number;
+    packagingMaterialId: number;
+    importReason: number;
+    supplierId?: number;
+    productionBatchId?: number;
+    quantity: number;
+    importDate: string;
+}
+
+interface IPackagingImportRequest {
+    packagingMaterialId: number;
+    quantity: number;
+    importDate: string;
+}
+interface IPackagingExport {
+    id: number;
+    packagingMaterialId: number;
+    productionBatchId: number;
+    quantity: number;
+    exportDate: string;
+}

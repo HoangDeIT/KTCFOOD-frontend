@@ -5,6 +5,15 @@ import UsersPage from "@/pages/Admin/UsersPage";
 import AdminLayout from "@/components/layouts/Layout";
 import ProductsPage from "@/pages/Inventory/ProductsPage";
 import InventoryPage from "@/pages/Inventory/InventoryPage";
+import MaterialPage from "@/pages/MaterialAndPacking/MaterialPage";
+import MaterialImportPage from "@/pages/MaterialAndPacking/MaterialImportPage";
+import MaterialExportPage from "@/pages/MaterialAndPacking/MaterialExportPage";
+import PackagingPage from "@/pages/MaterialAndPacking/PackagingPage";
+import MaterialInventoryPage from "@/pages/MaterialAndPacking/MaterialInventoryPage";
+import PackagingImportPage from "@/pages/MaterialAndPacking/PackagingImportPage";
+import PackagingExportPage from "@/pages/MaterialAndPacking/PackagingExportPage";
+import PackagingInventoryPage from "@/pages/MaterialAndPacking/PackagingInventoryPage";
+import DashboardPage from "@/pages/MaterialAndPacking/DashboardPage";
 
 
 
@@ -39,7 +48,78 @@ export default function AppRouter() {
                         </ProtectedRoute>
                     }
                 />
-
+                <Route
+                    path="/material-and-packaging/materials"
+                    element={
+                        <ProtectedRoute roles={["MaterialAndPackaging"]}>
+                            <MaterialPage />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/material-and-packaging/material-import"
+                    element={
+                        <ProtectedRoute roles={["MaterialAndPackaging"]}>
+                            <MaterialImportPage />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/material-and-packaging/material-export"
+                    element={
+                        <ProtectedRoute roles={["MaterialAndPackaging"]}>
+                            <MaterialExportPage />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/material-and-packaging/packagings"
+                    element={
+                        <ProtectedRoute roles={["MaterialAndPackaging"]}>
+                            <PackagingPage />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/material-and-packaging/material-inventory"
+                    element={
+                        <ProtectedRoute roles={["MaterialAndPackaging"]}>
+                            <MaterialInventoryPage />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/material-and-packaging/packaging-import"
+                    element={
+                        <ProtectedRoute roles={["MaterialAndPackaging"]}>
+                            <PackagingImportPage />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/material-and-packaging/packaging-export"
+                    element={
+                        <ProtectedRoute roles={["MaterialAndPackaging"]}>
+                            <PackagingExportPage />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/material-and-packaging/packaging-inventory"
+                    element={
+                        <ProtectedRoute roles={["MaterialAndPackaging"]}>
+                            <PackagingInventoryPage />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/material-and-packaging/dashboard"
+                    element={
+                        <ProtectedRoute roles={["MaterialAndPackaging"]}>
+                            <DashboardPage />
+                        </ProtectedRoute>
+                    }
+                />
             </Route>
         </Routes>
 

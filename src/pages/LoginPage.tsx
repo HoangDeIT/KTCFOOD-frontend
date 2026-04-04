@@ -5,6 +5,7 @@ import { useCurrentApp } from "../context/AppProvider";
 import { useNavigate } from "react-router-dom";
 import { loginApi } from "../api/authApi";
 import { jwtDecode } from "jwt-decode";
+import { isJson } from "@/utils/helper";
 
 const { Title } = Typography;
 
@@ -19,17 +20,17 @@ export default function LoginPage() {
         try {
             const res: any = await loginApi(username, password);
 
-            if (res.includes("Invalid")) {
+            if (!isJson(res) && res.includes("Invalid")) {
                 throw new Error("Invalid username or password");
             }
 
-            const decoded: any = jwtDecode(res);
+            const decoded: any = jwtDecode(res.token);
 
-            const role =
+            const role = res.role ? res.role :
                 decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
-
+            console.log("role:", role);
             const userData = {
-                token: res,
+                token: res.token,
                 expired: decoded.exp * 1000,
                 role: role,
                 username: decoded.name,
@@ -43,6 +44,8 @@ export default function LoginPage() {
                 navigate("/admin/users");
             } else if (role === "Inventory") {
                 navigate("/inventory/products");
+            } else if (role === "MaterialAndPackaging") {
+                navigate("/material-and-packaging/materials");
             }
         } catch (err) {
             alert(err);
