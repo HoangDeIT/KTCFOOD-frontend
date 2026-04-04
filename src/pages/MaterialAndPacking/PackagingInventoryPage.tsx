@@ -47,8 +47,7 @@ export default function PackagingInventoryPage() {
                 res.items.map(async (p) => {
                     try {
                         const q = await getPackagingQuantity(p.id);
-                        //@ts-ignore
-                        map[p.id] = typeof q === "number" ? q : q.data;
+                        map[p.id] = q;
                     } catch {
                         map[p.id] = 0;
                     }

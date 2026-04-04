@@ -181,12 +181,14 @@ export default function SalesOrderPage() {
                     </Button>
 
                     {/* 📦 DETAIL (order items) */}
+
+                    {/* fix later 
                     <Button
                         type="primary"
                         onClick={() => navigate(`/sales/orders/${r.id}/details`)}
                     >
                         Detail
-                    </Button>
+                    </Button> */}
 
                     {/* ✏️ EDIT */}
                     <Button onClick={() => {

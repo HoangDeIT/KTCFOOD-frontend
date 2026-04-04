@@ -33,8 +33,8 @@ instance.interceptors.response.use(function (response) {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
     if (response.status === 400) throw new Error(response.data?.message || "Bad Request");
-    if (response.data) return response.data
-    return response;
+    if (response.data || response.data === 0) return response.data
+    else return response;
 }, function (error) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
