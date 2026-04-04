@@ -64,7 +64,6 @@ interface IMaterial {
     unit: string;
     type: string;
     note: string;
-    avgPrice: number;
 }
 
 interface IMaterialRequest {

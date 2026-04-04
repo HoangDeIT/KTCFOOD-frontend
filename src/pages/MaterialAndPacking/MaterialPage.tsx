@@ -87,7 +87,6 @@ export default function MaterialPage() {
         { title: "Unit", dataIndex: "unit" },
         { title: "Type", dataIndex: "type" },
         { title: "Note", dataIndex: "note" },
-        { title: "Avg Price", dataIndex: "avgPrice" },
         {
             title: "Action",
             render: (_, record) => (
