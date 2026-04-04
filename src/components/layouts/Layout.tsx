@@ -91,6 +91,22 @@ export default function AdminLayout() {
 
                         </>
                     )}
+                    {appState?.role === "Sales" && (
+                        <>
+                            <Menu.Item key="16" icon={<DashboardOutlined />}>
+                                <Link to="/sales/orders">Sales Orders</Link>
+                            </Menu.Item>
+                            <Menu.Item key="17" icon={<DashboardOutlined />}>
+                                <Link to="/sales/exports">Exports</Link>
+                            </Menu.Item>
+                            <Menu.Item key="18" icon={<DashboardOutlined />}>
+                                <Link to="/sales/customers">Customers</Link>
+                            </Menu.Item>
+                            <Menu.Item key="19" icon={<DashboardOutlined />}>
+                                <Link to="/sales/suppliers">Suppliers</Link>
+                            </Menu.Item>
+                        </>
+                    )}
                 </Menu>
             </Sider>
 

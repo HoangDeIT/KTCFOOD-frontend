@@ -48,6 +48,8 @@ export default function LoginPage() {
                 navigate("/material-and-packaging/materials");
             } else if (role === "Production") {
                 navigate("/production/production-plans");
+            } else if (role === "Sales") {
+                navigate("/sales/orders");
             }
         } catch (err) {
             alert(err);

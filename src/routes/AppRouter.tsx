@@ -20,6 +20,11 @@ import ProductionBatchPage from "@/pages/Production/ProductionBatchPage";
 import ProductionBOMPage from "@/pages/Production/ProductionBOMPage";
 import ProductionBatchDetailPage from "@/pages/Production/ProductionBatchDetailPage";
 import ProductionLaborPage from "@/pages/Production/ProductionLaborPage";
+import SalesOrderPage from "@/pages/Sales/SalesOrderPage";
+import SalesOrderDetailPage from "@/pages/Sales/SalesOrderDetailPage";
+import FinishedGoodsExportPage from "@/pages/Sales/FinishedGoodsExportPage";
+import CustomerPage from "@/pages/Sales/CustomerPage";
+import SupplierPage from "@/pages/Sales/SupplierPage";
 
 
 export default function AppRouter() {
@@ -173,7 +178,46 @@ export default function AppRouter() {
                         </ProtectedRoute>
                     }
                 />
-
+                <Route
+                    path="/sales/orders"
+                    element={
+                        <ProtectedRoute roles={["Sales"]}>
+                            <SalesOrderPage />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/sales/orders/:id"
+                    element={
+                        <ProtectedRoute roles={["Sales"]}>
+                            <SalesOrderDetailPage />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/sales/exports"
+                    element={
+                        <ProtectedRoute roles={["Sales"]}>
+                            <FinishedGoodsExportPage />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/sales/customers"
+                    element={
+                        <ProtectedRoute roles={["Sales"]}>
+                            <CustomerPage />
+                        </ProtectedRoute>
+                    }
+                />
+                <Route
+                    path="/sales/suppliers"
+                    element={
+                        <ProtectedRoute roles={["Sales"]}>
+                            <SupplierPage />
+                        </ProtectedRoute>
+                    }
+                />
             </Route>
 
         </Routes>

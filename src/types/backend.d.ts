@@ -190,3 +190,77 @@ interface ILaborRequest {
     workDate: string;
     note?: string;
 }
+
+interface ISalesOrder {
+    id: number;
+    customerId: number;
+    orderDate: string;
+    deliveryDate: string;
+    status: string;
+}
+
+interface ISalesOrderRequest {
+    customerId: number;
+    orderDate: string;
+    deliveryDate: string;
+    status: string;
+}
+interface ICustomer {
+    id: number;
+    name: string;
+    address: string;
+    phone: string;
+}
+interface IOrderDetail {
+    id: number;
+    productId: number;
+    quantity: number;
+    price: number;
+}
+
+interface IOrderDetailRequest {
+    productId: number;
+    quantity: number;
+    price: number;
+}
+
+interface IExport {
+    id: number;
+    salesOrderId: number;
+    productId: number;
+    quantity: number;
+    exportDate: string;
+}
+
+interface IExportRequest {
+    salesOrderId: number;
+    productId: number;
+    quantity: number;
+    exportDate: string;
+}
+
+interface ISupplier {
+    id: number;
+    name: string;
+    phoneNumber?: string;
+    email?: string;
+}
+
+interface ISupplierRequest {
+    name: string;
+    phoneNumber?: string;
+    email?: string;
+}
+
+interface ICustomer {
+    id: number;
+    name: string;
+    address: string;
+    phone: string;
+}
+
+interface ICustomerRequest {
+    name: string;
+    address: string;
+    phone: string;
+}
