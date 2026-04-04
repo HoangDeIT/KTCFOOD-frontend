@@ -32,13 +32,13 @@ instance.interceptors.request.use(async function (config) {
 instance.interceptors.response.use(function (response) {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
-    if (response.status === 400) throw new Error(response.data?.message || "Bad Request");
     if (response.data || response.data === 0) return response.data
     else return response;
 }, function (error) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
-    if (error?.response?.data) return error?.response?.data;
-    return Promise.reject(error);
+    throw error;
+    // if (error?.response?.data) return error?.response?.data;
+    // return Promise.reject(error);
 });
 export default instance
