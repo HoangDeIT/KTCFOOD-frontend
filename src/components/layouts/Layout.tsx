@@ -77,7 +77,20 @@ export default function AdminLayout() {
                             </Menu.Item>
                         </>
                     )}
+                    {appState?.role === "Production" && (
+                        <>
+                            <Menu.Item key="13" icon={<DashboardOutlined />}>
+                                <Link to="/production/production-plans">Production Plans</Link>
+                            </Menu.Item>
+                            <Menu.Item key="14" icon={<DashboardOutlined />}>
+                                <Link to="/production/batches">Production Batches</Link>
+                            </Menu.Item>
+                            <Menu.Item key="15" icon={<DashboardOutlined />}>
+                                <Link to="/production/boms">Production BOMs</Link>
+                            </Menu.Item>
 
+                        </>
+                    )}
                 </Menu>
             </Sider>
 

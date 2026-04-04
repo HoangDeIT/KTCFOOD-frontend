@@ -46,6 +46,8 @@ export default function LoginPage() {
                 navigate("/inventory/products");
             } else if (role === "MaterialAndPackaging") {
                 navigate("/material-and-packaging/materials");
+            } else if (role === "Production") {
+                navigate("/production/production-plans");
             }
         } catch (err) {
             alert(err);

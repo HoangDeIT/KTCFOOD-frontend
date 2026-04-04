@@ -124,3 +124,69 @@ interface IPackagingExport {
     quantity: number;
     exportDate: string;
 }
+
+interface IProductionPlan {
+    id: number;
+    productId: number;
+    plannedQuantity: number;
+    shift: string;
+    startDate: string;
+    endDate: string;
+    status: string;
+}
+
+interface IProductionPlanRequest {
+    productId: number;
+    plannedQuantity: number;
+    shift: string;
+    startDate: string;
+    endDate: string;
+}
+
+interface IPaginated<T> {
+    items: T[];
+    pageIndex: number;
+    pageSize: number;
+    totalCount: number;
+}
+
+
+interface IProductionBatch {
+    id: number;
+    productId: number;
+    productionPlanId: number;
+    productionDate: string;
+    shift: string;
+    plannedQuantity: number;
+    actualQuantity: number;
+    status: string;
+}
+
+interface IBOM {
+    id: number;
+    productId: number;
+    isMaterial: boolean;
+    materialId?: number;
+    packagingMaterialId?: number;
+    quantityPerUnit: number;
+}
+
+interface IBOMRequest {
+    isMaterial: boolean;
+    originId: number; // materialId hoặc packagingId
+    quantityPerUnit: number;
+}
+
+interface IProductionLabor {
+    id: number;
+    productionBatchId: number;
+    workerCount: number;
+    workDate: string;
+    note?: string;
+}
+
+interface ILaborRequest {
+    workerCount: number;
+    workDate: string;
+    note?: string;
+}
