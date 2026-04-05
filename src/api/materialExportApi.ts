@@ -9,7 +9,7 @@ export const getMaterialExports = (params: {
 
 // CREATE EXPORT (auto từ BOM)
 export const createMaterialExports = (batchId: number, productId: number) =>
-    axios.get(
+    axios.put(
         `/material-and-packaging/material/export/create?batchId=${batchId}&productId=${productId}`
     );
 

@@ -17,44 +17,48 @@ export default function DashboardPage() {
 
     const [materialCount, setMaterialCount] = useState(0);
     const [packagingCount, setPackagingCount] = useState(0);
-
+    const [loading, setLoading] = useState(false);
     const [lowMaterials, setLowMaterials] = useState<IMaterial[]>([]);
     const [lowPackagings, setLowPackagings] = useState<IPackaging[]>([]);
-
     const fetchData = async () => {
         try {
+            setLoading(true);
+
             const mat = await getMaterials({ pageIndex: 1, pageSize: 1000 });
             const pac = await getPackagings({ pageIndex: 1, pageSize: 1000 });
+            console.log("Materials:", mat);
+            console.log("Packagings:", pac);
+            //@ts-ignore
+            setMaterialCount(mat.meta.totalItems);
+            setPackagingCount(pac.meta.totalItems);
 
-            setMaterialCount(mat.totalCount);
-            setPackagingCount(pac.totalCount);
+            const lowMat = (
+                await Promise.all(
+                    mat.items.map(async (m) => {
+                        const q = await getMaterialQuantity(m.id);
+                        return q != null && q < 10 ? { ...m, quantity: q } : null;
+                    })
+                )
+            ).filter(Boolean);
 
-            // 🔥 check tồn kho
-            const lowMat: IMaterial[] = [];
-            const lowPac: IPackaging[] = [];
+            const lowPac = (
+                await Promise.all(
+                    pac.items.map(async (p: IPackaging) => {
+                        const q = await getPackagingQuantity(p.id);
+                        return q != null && q < 10 ? { ...p, quantity: q } : null;
+                    })
+                )
+            ).filter(Boolean);
 
-            await Promise.all(
-                mat.items.map(async (m) => {
-                    const q = await getMaterialQuantity(m.id);
-                    if (q < 10) lowMat.push(m);
-                })
-            );
-
-            await Promise.all(
-                pac.items.map(async (p: IPackaging) => {
-                    const q = await getPackagingQuantity(p.id);
-                    if (q < 10) lowPac.push(p);
-                })
-            );
-
-            setLowMaterials(lowMat);
-            setLowPackagings(lowPac);
+            setLowMaterials(lowMat as any);
+            setLowPackagings(lowPac as any);
 
         } catch {
             message.error("Load dashboard failed 😢");
+        } finally {
+            setLoading(false);
         }
     };
-
     useEffect(() => {
         fetchData();
     }, []);
@@ -80,13 +84,20 @@ export default function DashboardPage() {
             {/* 🌟 LOW STOCK */}
             <Row gutter={16}>
                 <Col span={12}>
-                    <Card title="Low Material Stock ⚠️">
+                    <Card title="Low Material Stock ⚠️" loading={loading}>
                         <List
                             dataSource={lowMaterials}
-                            renderItem={(item) => (
+                            locale={{ emptyText: "No low materials 🎉" }}
+                            renderItem={(item: any) => (
                                 <List.Item>
-                                    {item.name}
-                                    <Tag color="red">LOW</Tag>
+                                    <div style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
+                                        <span>{item.name}</span>
+
+                                        <div>
+                                            <Tag color="red">LOW</Tag>
+                                            <Tag color="orange">{item.quantity}</Tag>
+                                        </div>
+                                    </div>
                                 </List.Item>
                             )}
                         />
@@ -94,13 +105,20 @@ export default function DashboardPage() {
                 </Col>
 
                 <Col span={12}>
-                    <Card title="Low Packaging Stock ⚠️">
+                    <Card title="Low Packaging Stock ⚠️" loading={loading}>
                         <List
                             dataSource={lowPackagings}
-                            renderItem={(item) => (
+                            locale={{ emptyText: "No low packagings 🎉" }}
+                            renderItem={(item: any) => (
                                 <List.Item>
-                                    {item.packageName}
-                                    <Tag color="red">LOW</Tag>
+                                    <div style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
+                                        <span>{item.packageName}</span>
+
+                                        <div>
+                                            <Tag color="red">LOW</Tag>
+                                            <Tag color="orange">{item.quantity}</Tag>
+                                        </div>
+                                    </div>
                                 </List.Item>
                             )}
                         />

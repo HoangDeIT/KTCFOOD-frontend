@@ -14,7 +14,7 @@ import { useParams } from "react-router-dom";
 import dayjs from "dayjs";
 import { getLabors, updateLabors } from "@/api/Production/productionLaborApi";
 
-
+import { completeBatch, cancelBatch } from "@/api/Production/productionBatchApi";
 export default function ProductionLaborPage() {
 
     const { id } = useParams();
@@ -88,7 +88,29 @@ export default function ProductionLaborPage() {
             >
                 Add Labor
             </Button>
+            <Space style={{ marginBottom: 16 }}>
 
+                <Button
+                    type="primary"
+                    onClick={async () => {
+                        await completeBatch(batchId);
+                        message.success("Completed UwU ✨");
+                    }}
+                >
+                    ✅ Complete Batch
+                </Button>
+
+                <Button
+                    danger
+                    onClick={async () => {
+                        await cancelBatch(batchId, "Manual cancel");
+                        message.success("Canceled ❌");
+                    }}
+                >
+                    ❌ Cancel Batch
+                </Button>
+
+            </Space>
             <Table
                 rowKey="id"
                 columns={columns}

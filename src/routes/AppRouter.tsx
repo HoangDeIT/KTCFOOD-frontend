@@ -31,7 +31,7 @@ export default function AppRouter() {
     return (
 
         <Routes>
-
+            <Route path="/" element={<LoginPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route element={<AdminLayout />}>
                 <Route

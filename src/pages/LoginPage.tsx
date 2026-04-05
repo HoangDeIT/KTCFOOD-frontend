@@ -19,7 +19,7 @@ export default function LoginPage() {
     const handleLogin = async () => {
         try {
             const res: any = await loginApi(username, password);
-
+            console.log("Login response:", res);
             if (!isJson(res) && res.includes("Invalid")) {
                 throw new Error("Invalid username or password");
             }

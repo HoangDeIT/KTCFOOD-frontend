@@ -5,7 +5,8 @@ import {
     Select,
     Space,
     Card,
-    message
+    message,
+    Popconfirm
 } from "antd";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -121,6 +122,20 @@ export default function SalesOrderDetailPage() {
             title: "Total",
             render: (_: any, r: any) =>
                 (r.quantity || 0) * (r.price || 0)
+        },
+        {
+            title: "Action",
+            render: (_: any, r: any, index: number) => (
+                <Popconfirm
+                    title="Delete this item?"
+                    onConfirm={() => {
+                        const newData = data.filter((_, i) => i !== index);
+                        setData(newData);
+                    }}
+                >
+                    <Button danger>Delete</Button>
+                </Popconfirm>
+            )
         }
     ];
 
