@@ -32,7 +32,7 @@ interface IProductionPlan {
     shift: string;
     startDate: string;
     endDate: string;
-    status: string;
+    status: number;
 }
 
 export default function ProductionPlanPage() {
@@ -50,6 +50,11 @@ export default function ProductionPlanPage() {
         pageSize: 10,
         total: 0
     });
+    const PlanStatus = {
+        Drafted: 0,
+        InProgress: 1,
+        Finished: 2
+    };
     const [products, setProducts] = useState<IProduct[]>([]);
 
     const fetchProducts = async () => {
@@ -172,14 +177,15 @@ export default function ProductionPlanPage() {
             title: "Status",
             render: (_, r) => {
                 const color =
-                    r.status === "Finished" ? "green" :
-                        r.status === "InProgress" ? "blue" :
+                    r.status === PlanStatus.Finished ? "green" :
+                        r.status === PlanStatus.InProgress ? "blue" :
                             "default";
 
-                return <Tag color={color}>{r.status}</Tag>;
+                const text = ["Drafted", "InProgress", "Finished"][r.status];
+
+                return <Tag color={color}>{text}</Tag>;
             }
         },
-
         {
             title: "Action",
             render: (_, r) => (
@@ -191,7 +197,7 @@ export default function ProductionPlanPage() {
                     </Button>
 
                     <Button
-                        disabled={r.status !== "Drafted"}
+                        disabled={r.status !== PlanStatus.Drafted}
                         onClick={() => {
                             setEditing(r);
                             setOpen(true);
@@ -207,7 +213,7 @@ export default function ProductionPlanPage() {
 
                     <Button
                         danger
-                        disabled={r.status !== "Drafted"}
+                        disabled={r.status !== PlanStatus.Drafted}
                         onClick={() => handleDelete(r.id)}
                     >
                         Delete

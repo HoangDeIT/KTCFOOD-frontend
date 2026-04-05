@@ -131,7 +131,7 @@ interface IProductionPlan {
     shift: string;
     startDate: string;
     endDate: string;
-    status: string;
+    status: number;
 }
 
 interface IProductionPlanRequest {

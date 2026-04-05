@@ -30,7 +30,22 @@ export default function ProductionBatchPage() {
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const [form] = Form.useForm();
+    const BatchStatus = {
+        Planned: 0,
+        InProgress: 1,
+        Finished: 2,
+        Canceled: 3
+    };
+    const getStatusColor = (status: number) => {
+        if (status === BatchStatus.Finished) return "green";
+        if (status === BatchStatus.InProgress) return "blue";
+        if (status === BatchStatus.Canceled) return "red";
+        return "default";
+    };
 
+    const getStatusText = (status: number) => {
+        return ["Planned", "InProgress", "Finished", "Canceled"][status];
+    };
     const [pagination, setPagination] = useState({
         current: 1,
         pageSize: 10,
@@ -133,15 +148,11 @@ export default function ProductionBatchPage() {
 
         {
             title: "Status",
-            render: (_: any, r: any) => {
-                const color =
-                    r.status === "Finished" ? "green" :
-                        r.status === "InProgress" ? "blue" :
-                            r.status === "Canceled" ? "red" :
-                                "default";
-
-                return <Tag color={color}>{r.status}</Tag>;
-            }
+            render: (_: any, r: any) => (
+                <Tag color={getStatusColor(r.status)}>
+                    {getStatusText(r.status)}
+                </Tag>
+            )
         },
 
         {
@@ -156,13 +167,13 @@ export default function ProductionBatchPage() {
                         View
                     </Button>
 
-                    {r.status === "Planned" && (
+                    {r.status === BatchStatus.Planned && (
                         <Button onClick={() => handleStart(r.id)}>
                             Start
                         </Button>
                     )}
 
-                    {r.status === "InProgress" && (
+                    {r.status === BatchStatus.InProgress && (
                         <>
                             <Button onClick={() => handleComplete(r.id)}>
                                 Complete

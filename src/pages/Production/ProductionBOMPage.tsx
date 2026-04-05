@@ -26,7 +26,7 @@ export default function ProductionBOMPage() {
 
     const [open, setOpen] = useState(false);
     const [form] = Form.useForm();
-
+    const isMaterial = Form.useWatch("isMaterial", form);
     // ================= FETCH =================
 
     const fetchData = async () => {
@@ -147,16 +147,24 @@ export default function ProductionBOMPage() {
                 }}
                 onOk={handleSubmit}
             >
+
                 <Form form={form} layout="vertical">
 
                     <Form.Item
                         name="isMaterial"
                         label="Type"
                         valuePropName="checked"
+                        initialValue={true}
                     >
                         <Switch
                             checkedChildren="Material"
                             unCheckedChildren="Packaging"
+                            onChange={() =>
+                                form.setFieldsValue({
+                                    originId: null,
+                                    quantityPerUnit: null
+                                })
+                            }
                         />
                     </Form.Item>
 
@@ -166,8 +174,9 @@ export default function ProductionBOMPage() {
                         rules={[{ required: true }]}
                     >
                         <Select
+                            disabled={isMaterial === undefined}
                             options={
-                                form.getFieldValue("isMaterial")
+                                isMaterial
                                     ? materials.map(m => ({
                                         label: m.name,
                                         value: m.id
