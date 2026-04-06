@@ -43,6 +43,7 @@ export default function ProductsPage() {
     const handleViewStock = async (productId: number) => {
         try {
             const res = await getProductInventoryCount(productId);
+            console.log("Stock value:", res);
             setStockValue(res);
             setStockModal(true);
         } catch {
@@ -91,14 +92,15 @@ export default function ProductsPage() {
         { title: "Code", dataIndex: "productCode" },
         { title: "Unit", dataIndex: "unit" },
         { title: "Price", dataIndex: "standardPrice" },
-        {
-            title: "Stock",
-            render: (_, record) => (
-                <Button onClick={() => handleViewStock(record.id)}>
-                    {stockValue === 0 && <Tag color="red">Out of stock</Tag>}
-                </Button>
-            )
-        },
+        // {
+        //     title: "Stock",
+        //     render: (_, record) => (
+        //         <Button onClick={() => handleViewStock(record.id)}>
+        //             {stockValue === 0 && <Tag color="red">Out of stock</Tag>}
+        //             {stockValue !== 0 && <Tag color="green">{stockValue} units</Tag>}
+        //         </Button>
+        //     )
+        // },
         {
             title: "Action",
             render: (_, record) => (
